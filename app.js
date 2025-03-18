@@ -27,34 +27,19 @@ function atualizarLista() {
 }
 
 function sortearAmigo() {
-    if (amigos.length < 2) {
-        alert("Adicione pelo menos dois amigos para sortear!");
+    if (amigos.length === 0) {
+        alert("Adicione pelo menos um amigo para sortear!");
         return;
     }
-
-    let sorteio = {};
-    let participantes = [...amigos];
-    let sorteados = [...amigos];
-
-    for (let participante of participantes) {
-        let possiveis = sorteados.filter(p => p !== participante);
-        if (possiveis.length === 0) {
-            return sortearAmigo(); // Reinicia o sorteio se não houver opções
-        }
-        let sorteado = possiveis[Math.floor(Math.random() * possiveis.length)];
-        sorteio[participante] = sorteado;
-        sorteados = sorteados.filter(p => p !== sorteado);
-    }
-
-    exibirResultado(sorteio);
+    
+    const sorteado = amigos[Math.floor(Math.random() * amigos.length)];
+    exibirResultado(sorteado);
 }
 
-function exibirResultado(sorteio) {
+function exibirResultado(sorteado) {
     const resultado = document.getElementById("resultado");
     resultado.innerHTML = "";
-    for (let [amigo, sorteado] of Object.entries(sorteio)) {
-        const li = document.createElement("li");
-        li.textContent = `${amigo} → ${sorteado}`;
-        resultado.appendChild(li);
-    }
+    const li = document.createElement("li");
+    li.textContent = `Sorteado: ${sorteado}`;
+    resultado.appendChild(li);
 }
